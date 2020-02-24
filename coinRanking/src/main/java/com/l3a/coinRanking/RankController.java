@@ -24,6 +24,6 @@ public class RankController {
                 .queryParam("base", base);
         RestTemplate rT = new RestTemplate();
         ResponseEntity<String>  resp = rT.getForEntity(builder.toUriString(), String.class);
-        return resp.toString();
+        return resp.getBody();
     }
 }
