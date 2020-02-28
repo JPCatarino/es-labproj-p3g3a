@@ -11,12 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class RankController {
+
+    Logger logger = LoggerFactory.getLogger(RankController.class);
+
     @GetMapping("/rank")
     public String baseCoin(@RequestParam(name="base", required=false, defaultValue="EUR") String base, Model model) throws IOException {
         model.addAttribute("base", base);
@@ -48,6 +53,7 @@ public class RankController {
         UriComponentsBuilder builder =  UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("base", base);
         RestTemplate rT = new RestTemplate();
+        logger.info("Attempting to send request API");
         ResponseEntity<String>  resp = rT.getForEntity(builder.toUriString(), String.class);
         ObjectMapper mapper = new ObjectMapper();
         CoinRankingRequest request = mapper.readValue(resp.getBody(), CoinRankingRequest.class);
