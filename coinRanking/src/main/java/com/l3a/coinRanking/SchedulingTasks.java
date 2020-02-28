@@ -14,6 +14,7 @@ public class SchedulingTasks {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
+    // CoinRanking only updates once a day, as far as i'm aware.
     @Scheduled(fixedRate = 86400)
     public void reportCurrentTime() {
         log.info("New day, new update {}", dateFormat.format(new Date()));
