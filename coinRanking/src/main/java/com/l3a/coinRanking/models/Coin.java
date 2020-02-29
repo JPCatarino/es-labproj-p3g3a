@@ -16,6 +16,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import javax.persistence.*;
+
+@Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
@@ -49,7 +52,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 })
 public class Coin implements Serializable
 {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("id")
     private Long id;
     @JsonProperty("uuid")
@@ -70,8 +74,10 @@ public class Coin implements Serializable
     private String iconUrl;
     @JsonProperty("websiteUrl")
     private String websiteUrl;
+    @ElementCollection
     @JsonProperty("socials")
     private List<Social> socials = new ArrayList<Social>();
+    @ElementCollection
     @JsonProperty("links")
     private List<Link> links = new ArrayList<Link>();
     @JsonProperty("confirmedSupply")
@@ -100,12 +106,14 @@ public class Coin implements Serializable
     private Double change;
     @JsonProperty("rank")
     private Long rank;
+    @ElementCollection
     @JsonProperty("history")
     private List<String> history = new ArrayList<String>();
     @JsonProperty("allTimeHigh")
     private AllTimeHigh allTimeHigh;
     @JsonProperty("penalty")
     private Boolean penalty;
+    @ElementCollection
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     private final static long serialVersionUID = 6586485921748578393L;

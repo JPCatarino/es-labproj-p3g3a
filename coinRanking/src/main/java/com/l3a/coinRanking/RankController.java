@@ -4,6 +4,7 @@ package com.l3a.coinRanking;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.l3a.coinRanking.models.Coin;
 import com.l3a.coinRanking.models.CoinRankingRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,9 @@ public class RankController {
 
     Logger logger = LoggerFactory.getLogger(RankController.class);
 
+    @Autowired
+    private CoinRepository repo;
+
     @GetMapping("/rank")
     public String baseCoin(@RequestParam(name="base", required=false, defaultValue="EUR") String base, Model model) throws IOException {
         model.addAttribute("base", base);
@@ -35,6 +39,7 @@ public class RankController {
             sb.append(lc.get(i).getName());
             sb.append(" ");
         }
+        sb.append(repo.findAll().toString());
         model.addAttribute("ranking", sb.toString());
         return "rank";
     }
@@ -57,6 +62,8 @@ public class RankController {
         ResponseEntity<String>  resp = rT.getForEntity(builder.toUriString(), String.class);
         ObjectMapper mapper = new ObjectMapper();
         CoinRankingRequest request = mapper.readValue(resp.getBody(), CoinRankingRequest.class);
+        logger.info("saving coins");
+        repo.saveAll(request.getData().getCoins());
         return request;
     }
 }
