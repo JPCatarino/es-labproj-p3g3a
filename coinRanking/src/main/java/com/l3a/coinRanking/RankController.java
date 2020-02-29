@@ -39,7 +39,7 @@ public class RankController {
             sb.append(lc.get(i).getName());
             sb.append(" ");
         }
-        sb.append(repo.findAll().toString());
+        sb.append(repo.findById((long) 1).get().getName());
         model.addAttribute("ranking", sb.toString());
         return "rank";
     }
@@ -63,7 +63,9 @@ public class RankController {
         ObjectMapper mapper = new ObjectMapper();
         CoinRankingRequest request = mapper.readValue(resp.getBody(), CoinRankingRequest.class);
         logger.info("saving coins");
-        repo.saveAll(request.getData().getCoins());
+        for (int i = 0; i < 3; i++) {
+            repo.save(request.getData().getCoins().get(i));
+        }
         return request;
     }
 }

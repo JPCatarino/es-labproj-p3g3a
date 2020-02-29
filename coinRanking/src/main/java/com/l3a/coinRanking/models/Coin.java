@@ -64,6 +64,7 @@ public class Coin implements Serializable
     private String symbol;
     @JsonProperty("name")
     private String name;
+    @Transient
     @JsonProperty("description")
     private String description;
     @JsonProperty("color")
@@ -75,9 +76,11 @@ public class Coin implements Serializable
     @JsonProperty("websiteUrl")
     private String websiteUrl;
     @ElementCollection
+    @Transient
     @JsonProperty("socials")
     private List<Social> socials = new ArrayList<Social>();
     @ElementCollection
+    @Transient
     @JsonProperty("links")
     private List<Link> links = new ArrayList<Link>();
     @JsonProperty("confirmedSupply")
@@ -107,13 +110,16 @@ public class Coin implements Serializable
     @JsonProperty("rank")
     private Long rank;
     @ElementCollection
+    @Transient
     @JsonProperty("history")
     private List<String> history = new ArrayList<String>();
+    @Transient
     @JsonProperty("allTimeHigh")
     private AllTimeHigh allTimeHigh;
     @JsonProperty("penalty")
     private Boolean penalty;
     @ElementCollection
+    @Transient
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     private final static long serialVersionUID = 6586485921748578393L;
