@@ -24,23 +24,26 @@ public class RankController {
     Logger logger = LoggerFactory.getLogger(RankController.class);
 
     @Autowired
-    private CoinRepository repo;
+    PersistenceModule persistenceModule;
+
+//    @Autowired
+//    private CoinRepository repo;
 
     @GetMapping("/rank")
     public String baseCoin(@RequestParam(name="base", required=false, defaultValue="EUR") String base, Model model) throws IOException {
         model.addAttribute("base", base);
-        CoinRankingRequest req = getRankJson(base);
-        List<Coin> lc = getRankJson(base).getData().getCoins();
-        StringBuilder sb = new StringBuilder();
+//        CoinRankingRequest req = getRankJson(base);
+//        List<Coin> lc = getRankJson(base).getData().getCoins();
+//        StringBuilder sb = new StringBuilder();
 
-        for(int i = 0; i < 10; i++){
-            sb.append(lc.get(i).getRank());
-            sb.append(". ");
-            sb.append(lc.get(i).getName());
-            sb.append(" ");
-        }
-        sb.append(repo.findById((long) 1).get().getName());
-        model.addAttribute("ranking", sb.toString());
+//        for(int i = 0; i < 10; i++){
+//            sb.append(lc.get(i).getRank());
+//            sb.append(". ");
+//            sb.append(lc.get(i).getName());
+//            sb.append(" ");
+//        }
+//        sb.append(repo.findById((long) 1).get().getName());
+        model.addAttribute("ranking", persistenceModule.findById((long) 1).getName());
         return "rank";
     }
 
@@ -53,7 +56,7 @@ public class RankController {
         return resp.getBody();
     }
 
-    private CoinRankingRequest getRankJson(String base) throws IOException {
+/*    private CoinRankingRequest getRankJson(String base) throws IOException {
         String url = "https://api.coinranking.com/v1/public/coins";
         UriComponentsBuilder builder =  UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("base", base);
@@ -67,5 +70,5 @@ public class RankController {
             repo.save(request.getData().getCoins().get(i));
         }
         return request;
-    }
+    }*/
 }
