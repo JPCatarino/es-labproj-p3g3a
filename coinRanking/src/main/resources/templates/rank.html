@@ -1,11 +1,27 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script src="coinRanking-0.0.1-SNAPSHOT/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script src="coinRanking-0.0.1-SNAPSHOT/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <title>CoinRanking Rank</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <p th:text="'This is the coin ranking based on ' + ${base} + '!'" />
 <p th:text="${ranking}"/>
+<table>
+    <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Market Cap</th>
+    </tr>
+    <tr th:each="coin : ${coins}">
+        <td th:text="${coin.rank}">1</td>
+        <td th:text="${coin.name}">Bit</td>
+        <td th:text="${coin.price}">2.41</td>
+        <td th:text="${coin.marketCap}">445</td>
+    </tr>
+</table>
 </body>
 </html>

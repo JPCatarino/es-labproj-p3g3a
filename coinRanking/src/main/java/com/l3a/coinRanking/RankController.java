@@ -43,10 +43,14 @@ public class RankController {
 //            sb.append(" ");
 //        }
 //        sb.append(repo.findById((long) 1).get().getName());
-        if(!persistenceModule.isCacheEmpty())
+        if(!persistenceModule.isCacheEmpty()) {
             model.addAttribute("ranking", persistenceModule.findById((long) 1).getName());
-        else
+            model.addAttribute("coins", persistenceModule.findAll());
+        }
+        else {
             model.addAttribute("ranking", persistenceModule.getCache().get(0).getName());
+            model.addAttribute("ranking", persistenceModule.getCache());
+        }
         return "rank";
     }
 
