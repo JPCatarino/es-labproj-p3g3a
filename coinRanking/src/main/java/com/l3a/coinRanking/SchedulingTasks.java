@@ -21,7 +21,7 @@ public class SchedulingTasks {
 
     // CoinRanking only updates once a day, as far as i'm aware.
     @Scheduled(fixedRate = 180000)
-    public void reportCurrentTime() throws IOException {
+    public void updateRank() throws IOException {
         log.info("New day, new update {}", dateFormat.format(new Date()));
         persistenceModule.getRankJson("EUR");
     }
