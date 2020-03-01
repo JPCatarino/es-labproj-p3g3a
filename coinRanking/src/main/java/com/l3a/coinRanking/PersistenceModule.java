@@ -13,15 +13,34 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class PersistenceModule {
     @Autowired
     private CoinRepository repo;
+
+    private List<Coin> cache;
     Logger logger = LoggerFactory.getLogger(PersistenceModule.class);
 
     public Coin findById(Long id){
         return repo.findById(id).get();
+    }
+
+    public List<Coin> findAll(){ return repo.findAll(); }
+
+    public List<Coin> getCache(){ return cache; }
+
+    public boolean isCacheEmpty(){
+        if (cache == null){
+            return true;
+        }
+        else return false;
+    }
+
+    public void replenishCache(){
+        cache = repo.findAll();
     }
 
     public void getRankJson(String base) throws IOException {

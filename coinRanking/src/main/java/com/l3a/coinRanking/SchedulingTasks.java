@@ -25,5 +25,11 @@ public class SchedulingTasks {
         log.info("New day, new update {}", dateFormat.format(new Date()));
         persistenceModule.getRankJson("EUR");
     }
+
+    @Scheduled(fixedRate = 120000)
+    public void updateCache(){
+        log.info("Replenishing cache");
+        persistenceModule.replenishCache();
+    }
 }
 
