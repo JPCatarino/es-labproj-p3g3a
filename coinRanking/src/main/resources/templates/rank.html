@@ -1,27 +1,46 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script src="coinRanking-0.0.1-SNAPSHOT/webjars/jquery/3.4.1/jquery.min.js"></script>
-    <script src="coinRanking-0.0.1-SNAPSHOT/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
     <title>CoinRanking Rank</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
 </head>
 <body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">CoinRanking</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+<br>
+<br>
+<br>
+<br>
 <p th:text="'This is the coin ranking based on ' + ${base} + '!'" />
-<p th:text="${ranking}"/>
-<table>
-    <tr>
-        <th>Rank</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Market Cap</th>
-    </tr>
-    <tr th:each="coin : ${coins}">
-        <td th:text="${coin.rank}">1</td>
-        <td th:text="${coin.name}">Bit</td>
-        <td th:text="${coin.price}">2.41</td>
-        <td th:text="${coin.marketCap}">445</td>
-    </tr>
-</table>
+<!--<p th:text="${ranking}"/>-->
+<main role="main" class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Rank</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Market Cap</th>
+            <th scope="col">24h Change</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="coin : ${coins}">
+            <td scope="row" th:text="${coin.rank}">1</td>
+            <td th:text="${coin.name}">Bit</td>
+            <td th:text="${coin.price}">2.41</td>
+            <td th:text="${coin.marketCap}">445</td>
+            <td th:text="${coin.change}">445</td>
+        </tr>
+        </tbody>
+    </table>
+</main><!-- /.container -->
 </body>
 </html>
