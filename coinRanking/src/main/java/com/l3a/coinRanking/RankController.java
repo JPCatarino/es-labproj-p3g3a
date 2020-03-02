@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -43,13 +44,17 @@ public class RankController {
 //            sb.append(" ");
 //        }
 //        sb.append(repo.findById((long) 1).get().getName());
-        if(!persistenceModule.isCacheEmpty()) {
+        if(persistenceModule.isCacheEmpty()) {
             //model.addAttribute("ranking", persistenceModule.findById((long) 1).getName());
-            model.addAttribute("coins", persistenceModule.findAll());
+            List<Coin> temp = persistenceModule.findAll();
+            temp.sort(Comparator.comparing(Coin::getRank));
+            model.addAttribute("coins", temp);
         }
         else {
             //model.addAttribute("ranking", persistenceModule.getCache().get(0).getName());
-            model.addAttribute("coins", persistenceModule.getCache());
+            List<Coin> temp = persistenceModule.getCache();
+            temp.sort(Comparator.comparing(Coin::getRank));
+            model.addAttribute("coins", temp);
         }
         return "rank";
     }

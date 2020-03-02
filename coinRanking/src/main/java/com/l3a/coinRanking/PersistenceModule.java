@@ -36,6 +36,7 @@ public class PersistenceModule {
         if (cache == null){
             return true;
         }
+        else if (cache.size() == 0) return true;
         else return false;
     }
 
@@ -53,7 +54,7 @@ public class PersistenceModule {
         ObjectMapper mapper = new ObjectMapper();
         CoinRankingRequest request = mapper.readValue(resp.getBody(), CoinRankingRequest.class);
         logger.info("saving coins");
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 50; i++) {
             repo.save(request.getData().getCoins().get(i));
         }
     }
