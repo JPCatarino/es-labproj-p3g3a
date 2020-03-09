@@ -19,6 +19,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "coin_tbl")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
@@ -50,10 +51,11 @@ import javax.persistence.*;
     "allTimeHigh",
     "penalty"
 })
+
 public class Coin implements Serializable
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator="coin_id_seq")
     @JsonProperty("id")
     private Long id;
     @JsonProperty("uuid")
@@ -84,12 +86,14 @@ public class Coin implements Serializable
     @JsonProperty("links")
     private List<Link> links = new ArrayList<Link>();
     @JsonProperty("confirmedSupply")
+    @Transient
     private Boolean confirmedSupply;
     @JsonProperty("numberOfMarkets")
     private Long numberOfMarkets;
     @JsonProperty("numberOfExchanges")
     private Long numberOfExchanges;
     @JsonProperty("type")
+    @Column(name="tp")
     private String type;
     @JsonProperty("volume")
     private Long volume;
@@ -101,13 +105,16 @@ public class Coin implements Serializable
     private Long circulatingSupply;
     @JsonProperty("totalSupply")
     private Long totalSupply;
+    @Transient
     @JsonProperty("approvedSupply")
     private Boolean approvedSupply;
     @JsonProperty("firstSeen")
     private Long firstSeen;
     @JsonProperty("change")
+    @Column(name="`change`")
     private Double change;
     @JsonProperty("rank")
+    @Column(name="`rank`")
     private Long rank;
     @ElementCollection
     @Transient
@@ -117,6 +124,7 @@ public class Coin implements Serializable
     @JsonProperty("allTimeHigh")
     private AllTimeHigh allTimeHigh;
     @JsonProperty("penalty")
+    @Transient
     private Boolean penalty;
     @ElementCollection
     @Transient
