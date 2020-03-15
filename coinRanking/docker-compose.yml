@@ -1,7 +1,7 @@
 version: '2'
 services:
   coinrank:
-    image: crank:latest
+    build: .
     container_name: coinrank-appcp
     ports:
       - "8080:8080"
@@ -9,6 +9,7 @@ services:
     networks:
       coinrank_net:
         ipv4_address: 172.28.0.10
+
   zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
@@ -17,6 +18,7 @@ services:
     networks:
       coinrank_net:
         ipv4_address: 172.28.0.2
+
   kafka:
     image: wurstmeister/kafka
     container_name: kafka
