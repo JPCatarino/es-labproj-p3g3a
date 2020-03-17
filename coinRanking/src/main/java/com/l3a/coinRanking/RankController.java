@@ -39,16 +39,16 @@ public class RankController {
     public String baseCoin(@RequestParam(name="base", required=false, defaultValue="EUR") String base, Model model) throws IOException {
         model.addAttribute("base", base);
 
-        producer.sendMessage(new Timestamp(new Date().getTime()) +" User is trying to check ranking");
+        producer.sendMessage(new Timestamp(new Date().getTime()) +" User is trying to check ranking", "users");
 
         if(persistenceModule.isCacheEmpty()) {
-            producer.sendMessage(new Timestamp(new Date().getTime()) +" Fetching Ranking from Database");
+            producer.sendMessage(new Timestamp(new Date().getTime()) +" Fetching Ranking from Database", "users");
             List<Coin> temp = persistenceModule.findAll();
             temp.sort(Comparator.comparing(Coin::getRank));
             model.addAttribute("coins", temp);
         }
         else {
-            producer.sendMessage(new Timestamp(new Date().getTime()) +" Fetching Ranking from Cache");
+            producer.sendMessage(new Timestamp(new Date().getTime()) +" Fetching Ranking from Cache", "users");
             List<Coin> temp = persistenceModule.getCache();
             temp.sort(Comparator.comparing(Coin::getRank));
             model.addAttribute("coins", temp);
