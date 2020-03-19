@@ -4,7 +4,7 @@
 A mainly exploratory springboot app, deployed using docker, which uses the Coin Ranking API to 
 show a cryptocurrency rank! 
 
-Developed by Jorge Catarino (@JPCatarino)
+Developed by Jorge Catarino ([JPCatarino](https://github.com/JPCatarino/))
 
 # Deploy:
 PowerShell:
