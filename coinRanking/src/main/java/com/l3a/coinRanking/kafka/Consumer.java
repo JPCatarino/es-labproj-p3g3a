@@ -27,6 +27,11 @@ public class Consumer {
         consumedMessages.add(message);
     }
 
+    @KafkaListener(topics = "logs", groupId = "coinranking")
+    public void consumeLogs(String message){
+        consumedMessages.add(message);
+    }
+
     public List<String> getConsumedMessages(){
         return this.consumedMessages;
     }
